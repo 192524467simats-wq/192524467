@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <string.h>
+
+struct User {
+    char name[30];
+    char files[20][30];
+    int count;
+};
+
+int main() {
+    struct User users[10];
+    int userCount = 0;
+    int choice, i;
+    char username[30], filename[30];
+
+    while(1) {
+        printf("\n1. Create User\n");
+        printf("2. Create File\n");
+        printf("3. Display Files\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        if(choice == 1) {
+            printf("Enter user name: ");
+            scanf("%s", username);
+
+            strcpy(users[userCount].name, username);
+            users[userCount].count = 0;
+            userCount++;
+
+            printf("User created\n");
+        }
+        else if(choice == 2) {
+            printf("Enter user name: ");
+            scanf("%s", username);
+
+            for(i = 0; i < userCount; i++) {
+                if(strcmp(users[i].name, username) == 0) {
+                    printf("Enter file name: ");
+                    scanf("%s", filename);
+
+                    strcpy(users[i].files[users[i].count], filename);
+                    users[i].count++;
+
+                    printf("File created\n");
+                    break;
+                }
+            }
+
+            if(i == userCount)
+                printf("User not found\n");
+        }
+        else if(choice == 3) {
+            printf("Enter user name: ");
+            scanf("%s", username);
+
+            for(i = 0; i < userCount; i++) {
+                if(strcmp(users[i].name, username) == 0) {
+                    printf("Files of %s:\n", username);
+
+                    for(int j = 0; j < users[i].count; j++)
+                        printf("%s\n", users[i].files[j]);
+
+                    break;
+                }
+            }
+
+            if(i == userCount)
+                printf("User not found\n");
+        }
+        else if(choice == 4) {
+            break;
+        }
+        else {
+            printf("Invalid choice\n");
+        }
+    }
+
+    return 0;
+}
